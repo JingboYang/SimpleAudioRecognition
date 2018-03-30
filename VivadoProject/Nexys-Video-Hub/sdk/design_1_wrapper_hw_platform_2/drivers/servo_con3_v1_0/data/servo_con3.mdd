@@ -1,0 +1,10 @@
+
+
+OPTION psf_version = 2.1;
+
+BEGIN DRIVER servo_con3
+	OPTION supported_peripherals = (servo_con3);
+	OPTION copyfiles = all;
+	OPTION VERSION = 1.0;
+	OPTION NAME = servo_con3;
+END DRIVER
