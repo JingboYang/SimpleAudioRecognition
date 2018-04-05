@@ -204,6 +204,19 @@ void Bluetooth_send(u8* buf)
     xil_printf("Sent from BT1 on JA: %c\r\n", (char) buf[0]);
     BT2_SendData(&myDevice1, buf, 1);
 }
+
+void Bluetooth_recieve(u8* buf)
+{
+
+    xil_printf("Starts receiving\r\n");
+    int n = BT2_RecvData(&myDevice1, buf, 1);
+    //Pooling for data
+    while (n == 0){
+    	n = BT2_RecvData(&myDevice1, buf, 1);
+    }
+    xil_printf("Receive from BT1 on JA: %c\r\n", (char) buf[0]);
+}
+
 /************************ Peter's FFT Function ****************************************/
 int FFT(u32 *TxBufferPtr, u32 *RxBufferPtr)
 {
@@ -261,13 +274,13 @@ int LOG(float *TxBufferPtr, float *RxBufferPtr, u32 Length)
 	 *  Both address pointers should point to float values
 	 */
 
-	// Sending 512 input data from TxbufferPtr to the FFT IP
-
 	//Flush cache
 	microblaze_flush_dcache();
 	microblaze_invalidate_dcache();
 
 	xil_printf("\r\nLOG Start");
+
+	// Write input data from TxBufferPtr to Floating-point IP
 	int Status;
 	Status = XAxiDma_SimpleTransfer(&sAxiDmaLOG,(u32) TxBufferPtr,
 				sizeof(float)*Length, XAXIDMA_DMA_TO_DEVICE);
@@ -281,25 +294,14 @@ int LOG(float *TxBufferPtr, float *RxBufferPtr, u32 Length)
 	microblaze_flush_dcache();
 	microblaze_invalidate_dcache();
 
-	/*
-	while ((XAxiDma_Busy(&sAxiDmaLOG,XAXIDMA_DMA_TO_DEVICE))) {
-			// Wait
-	}
-	*/
 
-	// Reading 512 output data from FFT IP and store them in RxBufferPtr
+	// Reading output data from Floating-point IP and store them in RxBufferPtr
 	Status = XAxiDma_SimpleTransfer(&sAxiDmaLOG,(u32) RxBufferPtr,
 				sizeof(float)*Length, XAXIDMA_DEVICE_TO_DMA);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\nLOG Read Failed");
 		return XST_FAILURE;
 	}
-
-	/*
-	while ((XAxiDma_Busy(&sAxiDmaLOG,XAXIDMA_DEVICE_TO_DMA)) || (XAxiDma_Busy(&sAxiDmaLOG,XAXIDMA_DMA_TO_DEVICE))) {
-			// Wait
-	}
-	*/
 
 
 	//Flush cache
@@ -482,6 +484,12 @@ int main(void)
     				for (i = 0; i < 512; i = i + 1){
     					xil_printf("\r\n%d, %d, %d",i, (int) TxBufferPtr2[i], (int) RxBufferPtr2[i]);
     				}
+
+    				//Bluetooth Send Testing
+    				char buf[1];
+    				buf[0] = 'A';
+    				xil_printf("\r\n");
+    				Bluetooth_send(buf);
 
     			}
 
