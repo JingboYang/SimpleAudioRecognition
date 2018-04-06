@@ -1,9 +1,9 @@
 /******************************************************************************/
 /*                                                                            */
-/* main.c -- Example program using the PmodBT2 IP                            */
+/* main.c -- Program for controlling the hub FPGA board                       */
 /*                                                                            */
 /******************************************************************************/
-/* Author: Arthur Brown                                                       */
+/* Author: Wenxuan Qiu                                                       */
 /*                                                                            */
 /******************************************************************************/
 /* File Description:                                                          */
@@ -14,7 +14,7 @@
 /******************************************************************************/
 /* Revision History:                                                          */
 /*                                                                            */
-/*    10/04/2017(artvvb):  Created                                            */
+/*   04/06/2018:  Updated                                                     */
 /*                                                                            */
 /******************************************************************************/
 
@@ -62,16 +62,16 @@ void LockUp(volatile unsigned int*);
 void LockDown(volatile unsigned int*);
 void LightOn(volatile unsigned int*);
 void LightOff(volatile unsigned int*);
-void Enter(	PmodMAXSONAR mySonar,
-			volatile unsigned int* ssr_ptr,
-			volatile unsigned int* servo_con_ptr
-			);
+void Enter( PmodMAXSONAR mySonar,
+            volatile unsigned int* ssr_ptr,
+            volatile unsigned int* servo_con_ptr
+            );
 
 int main()
 {
-	*(servo_con_ptr + 1) = 0x8;
-	*ssr_ptr = 0x2;
-	DemoInitialize();
+    *(servo_con_ptr + 1) = 0x8;
+    *ssr_ptr = 0x2;
+    DemoInitialize();
     DemoRun();
     DisableCaches();
     return XST_SUCCESS;
@@ -79,105 +79,105 @@ int main()
 
 void DoorOpen(volatile unsigned int* servo_con_ptr)
 {
-	xil_printf("servo_1 value: %x\n", *(servo_con_ptr));
-	int open_pos = 0xD;
-	if (*(servo_con_ptr) == open_pos){
-		return;
-	}
-	int diff = open_pos - (*(servo_con_ptr));
+    xil_printf("servo_1 value: %x\n", *(servo_con_ptr));
+    int open_pos = 0xD;
+    if (*(servo_con_ptr) == open_pos){
+        return;
+    }
+    int diff = open_pos - (*(servo_con_ptr));
     for (int i = 0; i < diff * 200000; i++){
-    	if (i % 200000 == 0){
-    	    *(servo_con_ptr) += 0x1;
-    	    xil_printf("servo_1 value: %x\n", *(servo_con_ptr));
-    	}
+        if (i % 200000 == 0){
+            *(servo_con_ptr) += 0x1;
+            xil_printf("servo_1 value: %x\n", *(servo_con_ptr));
+        }
     }
 }
 
 void DoorClose(volatile unsigned int* servo_con_ptr)
 {
-	if (*(servo_con_ptr) == 0x2){
-		return;
-	}
-	int diff = (*(servo_con_ptr)) - 0x2;
+    if (*(servo_con_ptr) == 0x2){
+        return;
+    }
+    int diff = (*(servo_con_ptr)) - 0x2;
     for (int i = 0; i < diff * 200000; i++){
-    	if (i % 200000 == 0){
-    	    *(servo_con_ptr) -= 0x1;
-    	    xil_printf("servo_1 value: %x\n", *(servo_con_ptr));
-    	}
+        if (i % 200000 == 0){
+            *(servo_con_ptr) -= 0x1;
+            xil_printf("servo_1 value: %x\n", *(servo_con_ptr));
+        }
     }
 }
 
 void LockUp(volatile unsigned int* servo_con_ptr)
 {
-	if (*(servo_con_ptr) == 0x0){
-		return;
-	}
-	int diff = (*(servo_con_ptr)) - 0x0;
+    if (*(servo_con_ptr) == 0x0){
+        return;
+    }
+    int diff = (*(servo_con_ptr)) - 0x0;
     for (int i = 0; i < diff * 100000; i++){
-    	if (i % 100000 == 0){
-    	    *(servo_con_ptr) -= 0x1;
-    	    xil_printf("servo_2 value: %x\n", *(servo_con_ptr));
-    	}
+        if (i % 100000 == 0){
+            *(servo_con_ptr) -= 0x1;
+            xil_printf("servo_2 value: %x\n", *(servo_con_ptr));
+        }
     }
 }
 
 
 void LockDown(volatile unsigned int* servo_con_ptr)
 {
-	if (*(servo_con_ptr) == 0x8){
-		return;
-	}
-	int diff = 0x8 - (*(servo_con_ptr));
+    if (*(servo_con_ptr) == 0x8){
+        return;
+    }
+    int diff = 0x8 - (*(servo_con_ptr));
     for (int i = 0; i < diff * 100000; i++){
-    	if (i % 100000 == 0){
-    	    *(servo_con_ptr) += 0x1;
-    	    xil_printf("servo_2 value: %x\n", *(servo_con_ptr));
-    	}
+        if (i % 100000 == 0){
+            *(servo_con_ptr) += 0x1;
+            xil_printf("servo_2 value: %x\n", *(servo_con_ptr));
+        }
     }
 }
 
 void LightOn(volatile unsigned int* ssr_ptr)
 {
-	*(ssr_ptr) = 0x1;
+    *(ssr_ptr) = 0x1;
 }
 
 void LightOff(volatile unsigned int* ssr_ptr)
 {
-	*(ssr_ptr) = 0x0;
+    *(ssr_ptr) = 0x0;
 }
 
 void Enter(
-	PmodMAXSONAR mySonar,
-	volatile unsigned int* ssr_ptr,
-	volatile unsigned int* servo_con_ptr
-	)
+    PmodMAXSONAR mySonar,
+    volatile unsigned int* ssr_ptr,
+    volatile unsigned int* servo_con_ptr
+    )
 {
-	int THRESHOLD = 250;
-	int count = 0;
-	u32 dist = MAXSONAR_getDistance(&mySonar);
-	while (count < THRESHOLD)
-	{
-		xil_printf("sonar value: %3d\n", dist);
-		dist = MAXSONAR_getDistance(&mySonar);
-		if (dist <= 8 && dist >= 6){
-			count++;
-		}
-	}
-	LightOn(ssr_ptr);
-	LockUp(servo_con_ptr + 1);
-	DoorOpen(servo_con_ptr);
-	count = 0;
-	while (count < THRESHOLD)
-	{
-		xil_printf("sonar value: %3d\n", dist);
-		dist = MAXSONAR_getDistance(&mySonar);
-		if (dist > 8 || dist < 6){
-			count++;
-		}
-	}
-	LightOff(ssr_ptr);
-	DoorClose(servo_con_ptr);
-	LockDown(servo_con_ptr + 1);
+    int THRESHOLD = 250;
+    int count = 0;
+    u32 dist = MAXSONAR_getDistance(&mySonar);
+    while (count < THRESHOLD)
+    {
+        xil_printf("sonar value: %3d\n", dist);
+        dist = MAXSONAR_getDistance(&mySonar);
+        if (dist <= 8 && dist >= 6){
+            count++;
+        }
+    }
+    LightOn(ssr_ptr);
+    LockUp(servo_con_ptr + 1);
+    DoorOpen(servo_con_ptr);
+    count = 0;
+    while (count < THRESHOLD)
+    {
+        xil_printf("sonar value: %3d\n", dist);
+        dist = MAXSONAR_getDistance(&mySonar);
+        if (dist > 8 || dist < 6){
+            count++;
+        }
+    }
+    LightOff(ssr_ptr);
+    DoorClose(servo_con_ptr);
+    LockDown(servo_con_ptr + 1);
 }
 
 void DemoInitialize()
@@ -192,16 +192,16 @@ void DemoInitialize()
         115200
     );
     BT2_Begin(
-    	&myDevice2,
-		XPAR_PMODBT2_1_AXI_LITE_GPIO_BASEADDR,
-		XPAR_PMODBT2_1_AXI_LITE_UART_BASEADDR,
-		BT2_UART_AXI_CLOCK_FREQ,
-		115200
+        &myDevice2,
+        XPAR_PMODBT2_1_AXI_LITE_GPIO_BASEADDR,
+        XPAR_PMODBT2_1_AXI_LITE_UART_BASEADDR,
+        BT2_UART_AXI_CLOCK_FREQ,
+        115200
     );
     MAXSONAR_begin(
-    	&mySonar,
-		MAX_SONAR_BASEADDRESS,
-		BT2_UART_AXI_CLOCK_FREQ);
+        &mySonar,
+        MAX_SONAR_BASEADDRESS,
+        BT2_UART_AXI_CLOCK_FREQ);
 }
 
 void DemoRun()
@@ -215,38 +215,38 @@ void DemoRun()
     xil_printf("Initialized PmodBT2 Demo, received data will be echoed here, type to send data\r\n");
     //Configuration setup
     if (setup == 1){
-    	while(1){
-    		n = SysUart_Recv(&myDevice1, buf, 1);
-    		n = SysUart_Recv(&myDevice2, buf, 1);
-    	}
+        while(1){
+            n = SysUart_Recv(&myDevice1, buf, 1);
+            n = SysUart_Recv(&myDevice2, buf, 1);
+        }
     }
 
     while(1) {
         if (k == 1) {
-        	n = BT2_RecvData(&myDevice2, buf, 1);
-        	while (n != 0){
-        		xil_printf("Received from BT2 on JB: %c\r\n", (char) buf[0]);
-        		n = BT2_RecvData(&myDevice2, buf, 1);
-        		k = 1;
-        		if (buf[0] == 'A'){
-                	LockUp(servo_con_ptr + 1);
-                	DoorOpen(servo_con_ptr);
-        		}
-        		else if (buf[0] == 'B'){
-                	DoorClose(servo_con_ptr);
-                	LockDown(servo_con_ptr + 1);
-        		}
-        		else if (buf[0] == 'C'){
-        			LightOn(ssr_ptr);
-        		}
-        		else if (buf[0] == 'D'){
-        			LightOff(ssr_ptr);
-        		}
-        		else if (buf[0] == 'E'){
-                	Enter(mySonar, ssr_ptr, servo_con_ptr);
-        		}
+            n = BT2_RecvData(&myDevice2, buf, 1);
+            while (n != 0){
+                xil_printf("Received from BT2 on JB: %c\r\n", (char) buf[0]);
+                n = BT2_RecvData(&myDevice2, buf, 1);
+                k = 1;
+                if (buf[0] == 'A'){
+                    LockUp(servo_con_ptr + 1);
+                    DoorOpen(servo_con_ptr);
+                }
+                else if (buf[0] == 'B'){
+                    DoorClose(servo_con_ptr);
+                    LockDown(servo_con_ptr + 1);
+                }
+                else if (buf[0] == 'C'){
+                    LightOn(ssr_ptr);
+                }
+                else if (buf[0] == 'D'){
+                    LightOff(ssr_ptr);
+                }
+                else if (buf[0] == 'E'){
+                    Enter(mySonar, ssr_ptr, servo_con_ptr);
+                }
 
-        	}
+            }
         }
     }
 }
