@@ -1,0 +1,30 @@
+#ifndef AUDIO_DIVIDER_H
+#define AUDIO_DIVIDER_H
+
+#ifdef MICROBLAZE_C
+#include "xaxidma.h"
+#else
+#include "microblaze_stub.h"
+#endif
+#include "debugger.h"
+
+#define BYTE_RATE 32000
+#define SAMPLE_RATE 16000
+
+#define CHUNK_SIZE 512
+#define CONTINUED_SILENCE		4
+#define SILENCE_THRESHOLD		1500
+#define SILENCE_THRESHOLD_SQ	SILENCE_THRESHOLD * SILENCE_THRESHOLD
+
+#define MAX_NUM_SEGS 2
+
+#define TRUE 1
+#define FALSE 0
+
+
+// chunk has default of size 512
+float rms(int* audio_arr, int start, int end);
+int* divide_audio(int* audio_arr, int length, int* got_num_segs);
+
+#endif
+
