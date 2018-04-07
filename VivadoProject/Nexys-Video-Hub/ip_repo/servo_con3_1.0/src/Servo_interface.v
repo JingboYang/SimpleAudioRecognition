@@ -1,14 +1,13 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: Digilent
-// Engineer: Kaitlyn Franz
+// Company: Digilent, University of Toronto
+// Engineer: Kaitlyn Franz (Digilent), Wenxuan Qiu (University of Toronto)
 // 
-// Create Date: 01/31/2016 03:04:42 PM
-// Design Name: ServoControlwithPmodCON3
+// Create Date: 03/11/2018 03:04:42 PM
 // Module Name: Servo_interface
-// Project Name: The Claw
-// Target Devices: Basys 3 with PmodCON3
-// Tool Versions: 2015.4
+// Project Name: SimpleAudioRecognition
+// Target Devices: Nexys 4 Video board with PmodCON3
+// Tool Versions: 2017.4
 // Description: 
 //      This module creates the PWM signal needed to drive
 //      one servo using the PmodCON3. To use the other 3 servo connectors,
@@ -19,6 +18,7 @@
 // 
 // Revision:
 // Revision 0.01 - File Created
+// Revision 0.02 - Modified by Wenxuan Qiu
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
