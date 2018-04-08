@@ -14,8 +14,6 @@ set_property IOSTANDARD LVCMOS33 [get_ports {SSRon[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {SSRon[2]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {SSRon[1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {SSRon[0]}]
-set_property PACKAGE_PIN Y21 [get_ports PWM1]
-set_property PACKAGE_PIN AA21 [get_ports PWM2]
 set_property IOSTANDARD LVCMOS33 [get_ports PWM1]
 set_property IOSTANDARD LVCMOS33 [get_ports PWM2]
 
