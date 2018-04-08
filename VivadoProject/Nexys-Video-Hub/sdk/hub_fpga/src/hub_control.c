@@ -95,6 +95,7 @@ void DoorOpen(volatile unsigned int* servo_con_ptr)
 
 void DoorClose(volatile unsigned int* servo_con_ptr)
 {
+    xil_printf("servo_1 value: %x\n", *(servo_con_ptr));
     if (*(servo_con_ptr) == 0x2){
         return;
     }
@@ -109,6 +110,7 @@ void DoorClose(volatile unsigned int* servo_con_ptr)
 
 void LockUp(volatile unsigned int* servo_con_ptr)
 {
+    xil_printf("servo_2 value: %x\n", *(servo_con_ptr));
     if (*(servo_con_ptr) == 0x0){
         return;
     }
@@ -124,6 +126,7 @@ void LockUp(volatile unsigned int* servo_con_ptr)
 
 void LockDown(volatile unsigned int* servo_con_ptr)
 {
+    xil_printf("servo_2 value: %x\n", *(servo_con_ptr));
     if (*(servo_con_ptr) == 0x8){
         return;
     }
