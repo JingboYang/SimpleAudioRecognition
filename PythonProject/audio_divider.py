@@ -2,7 +2,6 @@ from __future__ import division
 import struct
 import math
 import numpy as np
-import matplotlib.pyplot as plt
 
 
 # Apparently need 
@@ -11,28 +10,6 @@ SAMPLE_RATE = 16000                         # 16K sampling rate
 BYTE_RATE = SAMPLE_RATE * BYTE_PER_SAMPLE   # byte rate
 
 VAD_CHUNK = SAMPLE_RATE * 32 / 1000
-
-
-def open_audio(filename):
-
-    with open(filename, 'rb') as f:
-        arr = f.read()
-    
-    result = []
-    for i in range(0, len(arr), BYTE_PER_SAMPLE):
-        unpacked = struct.unpack('<h', arr[i:i+BYTE_PER_SAMPLE])
-        result.append(unpacked)
-
-        #print(unpacked)
-
-    #plt.plot(result, linewidth=0.1)
-    #plt.show()
-
-    result = np.array(result)
-
-    print('length of audio is ' + str(len(result)))
-
-    return result
 
 
 def rms(chunk):
@@ -46,7 +23,7 @@ def rms(chunk):
     return result
 
 
-def divide_audio(arr):
+def divide_audio(arr, threshold=1500, silence_count=4):
 
     num_iters = int(len(arr) / VAD_CHUNK)
 
@@ -65,7 +42,7 @@ def divide_audio(arr):
         rms_power = rms(arr[start_index:end_index])
         #print(rms_power * rms_power)
         #if rms_power > 400:
-        if rms_power > 1500:
+        if rms_power > threshold:
             non_speech_count = 0
             if is_speech == False:
                 speech_start = start_index
@@ -78,18 +55,16 @@ def divide_audio(arr):
                 pass
             else:
                 non_speech_count += 1
-                if non_speech_count > 4:
+                if non_speech_count > silence_count:
                     is_speech = False
                     speech_ranges.append((speech_start, speech_end))
                     
                     print('-----')
-                    print(speech_start)
-                    print(speech_start / SAMPLE_RATE)
-                    print(speech_end)
-                    print(speech_end / SAMPLE_RATE)
+                    print(speech_start, speech_start / SAMPLE_RATE)
+                    print(speech_end, speech_end / SAMPLE_RATE)
                     print('----')
                     
-    if non_speech_count <= 4:
+    if non_speech_count <= silence_count:
         speech_ranges.append((speech_start, end_index))
 
     speech_segs = []
@@ -99,15 +74,23 @@ def divide_audio(arr):
     return speech_ranges, speech_segs
 
 
+def plot_vad(audio_arr, speech_ranges, jupyter=True):
+
+    import matplotlib.pyplot as plt
+
+    plt.plot(audio_arr, linewidth=0.2)
+    
+    for s in speech_ranges:
+        plt.axvspan(s[0], s[1], facecolor='#2ca02c', alpha=0.5)
+
+    if not jupyter:
+        plt.show()
+
+
 if __name__ == '__main__':
     #audio_arr = open_audio('audio_lib/phrase/open_the_door6.raw')
     audio_arr = open_audio('audio_lib/phrase/open_door_4.raw')
     
     speech_ranges, speech_segs = divide_audio(audio_arr)
 
-    plt.plot(audio_arr, linewidth=0.2)
-    print(speech_ranges)
-    for s in speech_ranges:
-        plt.axvspan(s[0], s[1], facecolor='#2ca02c', alpha=0.5)
-
-    plt.show()
+    plot_vad(audio_arr, speech_ranges)

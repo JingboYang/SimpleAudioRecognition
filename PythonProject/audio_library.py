@@ -73,7 +73,11 @@ def generate_one_library(filename, do_plotting=False):
     return all_mfcc_scaled
 
 
-def generate_libraries():
+def generate_libraries(jupyter=False):
+
+    if jupyter:
+        global LIBRARY_PATH
+        LIBRARY_PATH = os.path.join('..', 'audio_lib')
     onlyfiles = [f for f in os.listdir(LIBRARY_PATH) if os.path.isfile(os.path.join(LIBRARY_PATH, f))]
 
     mfcc_map = {}
@@ -94,7 +98,11 @@ def load_one_library(filename):
     return all_mfcc_scaled
 
 
-def load_libraries():
+def load_libraries(jupyter=False):
+
+    if jupyter:
+        global LIBRARY_PATH
+        LIBRARY_PATH = os.path.join('..', 'audio_lib')
 
     onlyfiles = [f for f in os.listdir(LIBRARY_PATH) if os.path.isfile(os.path.join(LIBRARY_PATH, f))]
 

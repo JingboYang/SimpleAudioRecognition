@@ -57,6 +57,7 @@ def generate_filter_bank():
             fbank[m - 1, k] = (bin[m + 1] - k) / (bin[m + 1] - bin[m])
 
     MEL_FILTER_BANK = np.array(fbank)
+    return MEL_FILTER_BANK
     #print('shape of mel filter bank: ' + str(MEL_FILTER_BANK.shape))
 
     #print(MEL_FILTER_BANK)
@@ -76,15 +77,20 @@ def generate_dct_coeffs():
     
     DCT_COEF = np.array(coeffs)
     print('shape of DCT coefficients: ' + str(DCT_COEF.shape))
+    return DCT_COEF
 
 
-
-def pre_emphasis(audio_chunk):
+def pre_emphasis(audio_chunk, coef=None):
     
     result = [audio_chunk[0]]
 
+    if coef is None:
+        pre_emph_coef = PRE_EMPH_COEF
+    else:
+        pre_emph_coef = coef
+
     for i in range(1, len(audio_chunk)):
-        result.append(audio_chunk[i] - PRE_EMPH_COEF * result[-1])
+        result.append(audio_chunk[i] - pre_emph_coef * result[-1])
 
     result = np.array(result).flatten()
 
@@ -124,11 +130,8 @@ def compute_fft(processed_audio):
 
     return powers
 
-
 def process_mel(powers):
     
-    
-
     results = np.dot(powers, np.transpose(MEL_FILTER_BANK))
     
     #print(results)
@@ -196,6 +199,9 @@ def workflow(audio_arr):
     max_ratio = 1.0
     last = int(len(audio_arr) * max_ratio)
 
+    num_windows = int((last - WINDOW_SIZE))
+    last = int(len(audio_arr) * max_ratio)
+
     num_windows = int((last - WINDOW_SIZE) / SHIFT_WINDOW) + 1
     print('Total of ' + str(num_windows) + ' windows')
 
@@ -208,11 +214,11 @@ def workflow(audio_arr):
 
     all_mfcc_scaled = []
     all_mfcc_no_scale = []
-    portion = 0.1
+    portion = 0.25
     end_point = -1
     for i in range(0, last - SHIFT_WINDOW, SHIFT_WINDOW):
         if float(i) / last > portion:
-            #print('\t Processed ' + str(round(float(i) / last * 100, 2)) + '%')
+            print('Processed ' + str(round(float(i) / last * 100, 2)) + '%')
             portion += 0.1
 
         # forget about the last little bit if it doesn't fit

@@ -62,7 +62,7 @@ def dtw(a1, a2, need_path=False):
         for j in range(1, len(a2) + 1):
             #cost = cosine_dist(a1[i - 1], a2[j - 1])
             cost = cart_dist(a1[i - 1], a2[j - 1])
-            print(cost)
+            #print(cost)
             #print(dtw_array)
             
             #three = [dtw_array[i - 1][j], dtw_array[i][j - 1], dtw_array[i-1][j-1]]

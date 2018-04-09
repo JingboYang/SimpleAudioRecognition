@@ -21,8 +21,8 @@ def open_audio(filename):
     #plt.plot(result, linewidth=0.1)
     #plt.show()
 
-    result = np.array(result)
-
+    result = np.array(result).flatten()
+    print(result.shape)
     print('length of audio is ' + str(len(result)))
 
     return result
@@ -40,7 +40,6 @@ def save_audio(filename, content):
 
 def normalize_audio(audio_arr):
 
-    
     max_val = 2 ** 15 * 0.95
     
     highest = max(audio_arr)
@@ -53,32 +52,41 @@ def normalize_audio(audio_arr):
     return audio_arr
 
 
-def plot_audio(audio_arrs):
+def plot_audio(audio_arrs, jupyter=False):
     import matplotlib.pyplot as plt
+    import numbers
+    if isinstance(audio_arrs[0], numbers.Number):
+        print('audio_arrs should be a list. If there is only 1 audio, use [audio_values]')
+        exit(-1)
 
-    f, axs = plt.subplots(len(audio_arrs), 1, sharey=True)
-    longest = 0
-    for a in audio_arrs:
-        longest = max(longest, len(a))
+    if len(audio_arrs) > 1:
+        f, axs = plt.subplots(len(audio_arrs), 1, sharey=True)
+        longest = 0
+        for a in audio_arrs:
+            longest = max(longest, len(a))
 
-    for i, a in enumerate(audio_arrs):
-        ax = axs[i]
+        for i, a in enumerate(audio_arrs):
+            ax = axs[i]
 
-        ax.plot(a, linewidth=0.2)
-        ax.set_xlim((0, longest))
+            ax.plot(a, linewidth=0.2)
+            ax.set_xlim((0, longest))
+            ax.set_ylim(-2**15, 2**15)
+    else:
+        f, ax = plt.subplots(len(audio_arrs), 1, sharey=True)
+        ax.plot(audio_arrs[0],  linewidth=0.2)
         ax.set_ylim(-2**15, 2**15)
-    
-    plt.show()
+
+    if not jupyter:
+        plt.show()
+
     
 
 if __name__ == '__main__':
-    #exit()
 
+    audio = open_audio('audio_lib/sequences/open_door_0.raw')
     
-    audio = open_audio('audio_lib/phrase/open_door_4.raw')
-
-    #audio = open_audio('audio_lib/open_4.raw')
-    plot_audio([audio, []])
+    plot_audio(audio)
+    
     exit()
 
     from c_arr_printer import *
