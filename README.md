@@ -6,15 +6,19 @@ Here is a short video demonstration of our project.
 
 [![Video Demonstration](https://img.youtube.com/vi/ksYiwKTFCrY/0.jpg)](https://www.youtube.com/watch?v=ksYiwKTFCrY)
 
-## Contents
-
-In this repository, you will find all components of our project. We have created tutorials for these projects as well. These tutorials describe how our project should be used and how to setup individual IPs. 
+## Development Environment
 
 We used Xilinx WebPACK (download page [here](https://www.xilinx.com/support/download.html)). 
 
 Our Python code work with Python3. You should run our Python code on Linux or Mac to accomodate hardcoded file path. For Windows systems, we highly recommend using [Anaconda for Python 3.6](https://www.anaconda.com/download/). 
 
 We recommend coding C and Python with [Visual Studio Code](https://code.visualstudio.com/), a lightweight cross-platform editor.
+
+Optimal setup for our project is a Windows 10 machine running [Ubuntu 16.04 LTS](https://www.ubuntu.com/download/desktop) virtual machine with [VMware Workstation Player](https://www.vmware.com/products/workstation-player/workstation-player-evaluation.html) for best driver support with Nexys Video Board.
+
+## Contents
+
+In this repository, you will find all components of our project. We have created tutorials for these projects as well. These tutorials describe how our project should be used and how to setup individual IPs. 
 
  * Vivado project for our complete audio recognition hardware and software setup ([here](https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/VivadoProject/Nexys-Video-DMA-BT-FFT-Full-Precision-Test))
     * Tutorial [here](https://github.com/CaptainPenguins/SimpleAudioRecognition/blob/master/doc/Floating_point_DMA_FFT_BT_Tutorial.pdf)
