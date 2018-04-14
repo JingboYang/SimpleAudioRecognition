@@ -10,7 +10,9 @@ Here is a short video demonstration of our project.
 
 In this repository, you will find all components of our project. We have created tutorials for these projects as well. These tutorials describe how our project should be used and how to setup individual IPs. 
 
-We used Xilinx WebPACK (download page [here](https://www.xilinx.com/support/download.html)). All of our Python code should work with both Python2 and Python3. You should run our Python code on Linux or Mac to accomodate hardcoded file path. 
+We used Xilinx WebPACK (download page [here](https://www.xilinx.com/support/download.html)). 
+
+Our Python code work with Python3. You should run our Python code on Linux or Mac to accomodate hardcoded file path. For Windows systems, we highly recommand using [Anaconda for Python 3.6](https://www.anaconda.com/download/). 
 
  * Vivado project for our complete audio recognition hardware and software setup ([here](https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/VivadoProject/Nexys-Video-DMA-BT-FFT-Full-Precision-Test))
     * Tutorial [here](https://github.com/CaptainPenguins/SimpleAudioRecognition/blob/master/doc/Floating_point_DMA_FFT_BT_Tutorial.pdf)
