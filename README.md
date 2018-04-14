@@ -29,7 +29,7 @@ Naif was TA for our project and [Professor Paul Chow](http://www.eecg.toronto.ed
 
 ## Acknowledgments
 
-Our PMOD modules relied on many Digilent example projects. A generic tutorial of Digilent's PMOD can be found [here](https://reference.digilentinc.com/learn/programmable-logic/tutorials/pmod-ips/start). 
+Our PMOD modules rely on many Digilent example projects. A generic tutorial of Digilent's PMOD can be found [here](https://reference.digilentinc.com/learn/programmable-logic/tutorials/pmod-ips/start). 
 
 Our audio recognition system is based on research works, an example of which is [Voice Recognition Algorithms using Mel Frequency Cepstral Coefficient (MFCC) and Dynamic Time Warping (DTW) Techniques](https://arxiv.org/ftp/arxiv/papers/1003/1003.4083.pdf). 
 
