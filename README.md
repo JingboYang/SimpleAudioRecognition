@@ -12,7 +12,9 @@ In this repository, you will find all components of our project. We have created
 
 We used Xilinx WebPACK (download page [here](https://www.xilinx.com/support/download.html)). 
 
-Our Python code work with Python3. You should run our Python code on Linux or Mac to accomodate hardcoded file path. For Windows systems, we highly recommand using [Anaconda for Python 3.6](https://www.anaconda.com/download/). 
+Our Python code work with Python3. You should run our Python code on Linux or Mac to accomodate hardcoded file path. For Windows systems, we highly recommend using [Anaconda for Python 3.6](https://www.anaconda.com/download/). 
+
+We recommend coding C and Python with [Visual Studio Code](https://code.visualstudio.com/), a lightweight cross-platform editor.
 
  * Vivado project for our complete audio recognition hardware and software setup ([here](https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/VivadoProject/Nexys-Video-DMA-BT-FFT-Full-Precision-Test))
     * Tutorial [here](https://github.com/CaptainPenguins/SimpleAudioRecognition/blob/master/doc/Floating_point_DMA_FFT_BT_Tutorial.pdf)
@@ -21,6 +23,7 @@ Our Python code work with Python3. You should run our Python code on Linux or Ma
  * Python project for a simple audio matching algorithm ([here](https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/PythonProject))
     * Tutorial [here](https://github.com/CaptainPenguins/SimpleAudioRecognition/blob/master/PythonProject/JupyterNotebook/Instruction.ipynb)
  * C translation of the Python project managed by Visual Studio ([here](https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/VisualStudioProject))
+    * Use [Visual Studio 2017 Community Edition](https://www.visualstudio.com/downloads/)
  * Other Python utilities that we have used ([here](https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/MicroblazePlotTools))
 
  [DesignTree](https://github.com/CaptainPenguins/SimpleAudioRecognition/blob/master/DesignTree.md) is a document outlining all of our design components. You can also find a [formal report](https://github.com/CaptainPenguins/SimpleAudioRecognition/blob/master/doc/FinalReport.pdf) for the project.
