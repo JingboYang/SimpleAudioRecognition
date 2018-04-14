@@ -22,7 +22,9 @@ We used Xilinx WebPACK (download page [here](https://www.xilinx.com/support/down
 
 ## Contributors
 
-We are Jingbo, Peter and Wenxuan from Division of Engineering Science at University of Toronto. Naif was TA for our project and [Professor Paul Chow](http://www.eecg.toronto.edu/~pc/) was our instructor.
+We are Jingbo, Peter and Wenxuan from Division of Engineering Science at University of Toronto. 
+
+Naif was TA for our project and [Professor Paul Chow](http://www.eecg.toronto.edu/~pc/) was our instructor.
 
 
 ## Acknowledgments
