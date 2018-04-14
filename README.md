@@ -4,7 +4,7 @@ This is a repository for University of Toronto Course ECE 532 Digital System Des
 
 ## Contents
 
-In this repository, you will find all components of our project. We have created tutorials for these projects as well. 
+In this repository, you will find all components of our project. We have created tutorials for these projects as well. These tutorials describe how our project should be used and how to setup individual IPs. 
 
 We used Xilinx WebPACK (download page [here](https://www.xilinx.com/support/download.html)). All of our Python code should work with both Python2 and Python3. You should run our Python code on Linux or Mac to accomodate hardcoded file path. 
 
@@ -17,7 +17,7 @@ We used Xilinx WebPACK (download page [here](https://www.xilinx.com/support/down
  * C translation of the Python project managed by Visual Studio ([here](https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/VisualStudioProject))
  * Other Python utilities that we have used ([here](https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/MicroblazePlotTools))
 
- A short document outlining all components of our design is [DesignTree](https://github.com/CaptainPenguins/SimpleAudioRecognition/blob/master/DesignTree.md)
+ [DesignTree](https://github.com/CaptainPenguins/SimpleAudioRecognition/blob/master/DesignTree.md) is a document outlining all of our design components. You can also find a [formal report](https://github.com/CaptainPenguins/SimpleAudioRecognition/blob/master/doc/FinalReport.pdf) for the project.
 
 
 ## Contributors
