@@ -2,6 +2,9 @@
 
 This is a repository for University of Toronto Course ECE 532 Digital System Design ([An old course link here](http://www.eecg.toronto.edu/~pc/courses/532/2007/)). Official name of the project is `A Wirelessly Controlled Home Automation System`. It is a system built on [Nexys Video Board](https://store.digilentinc.com/nexys-video-artix-7-fpga-trainer-board-for-multimedia-applications/). This system runs a primitive audio recognition system and controls various [PMODs supplied by Digilent](https://store.digilentinc.com/pmod-modules/).
 
+Here is a short video demonstration of our project.
+[![Video Demonstration](https://img.youtube.com/vi/ksYiwKTFCrY/0.jpg)](https://www.youtube.com/watch?v=ksYiwKTFCrY)
+
 ## Contents
 
 In this repository, you will find all components of our project. We have created tutorials for these projects as well. These tutorials describe how our project should be used and how to setup individual IPs. 
