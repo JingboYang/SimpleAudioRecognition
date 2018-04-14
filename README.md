@@ -4,12 +4,20 @@ This is a repository for University of Toronto Course ECE 532 Digital System Des
 
 ## Contents
 
-In this repository, you will find all components of our project. They are
+In this repository, you will find all components of our project. We have created tutorials for these projects as well. 
+
+We used Xilinx WebPACK (download page [here](https://www.xilinx.com/support/download.html)). All of our Python code should work with both Python2 and Python3. You should run our Python code on Linux or Mac to accomodate hardcoded file path. 
 
  * Vivado project for our complete audio recognition hardware and software setup ([here](https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/VivadoProject/Nexys-Video-DMA-BT-FFT-Full-Precision-Test))
+    * Tutorial [here](https://github.com/CaptainPenguins/SimpleAudioRecognition/blob/master/doc/Floating_point_DMA_FFT_BT_Tutorial.pdf)
  * Vivado project for various PMOD contollers (Server, relay, ultrasonic and Bluetooth) ([here](https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/VivadoProject/Nexys-Video-Hub))
- * Python project for a simple audio matching algorithm ([here])(https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/PythonProject)
+    * Tutorial [here](https://github.com/CaptainPenguins/SimpleAudioRecognition/blob/master/doc/Hub_Board_PMOD_Tutorial.pdf)
+ * Python project for a simple audio matching algorithm ([here](https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/PythonProject))
+    * Tutorial [here](https://github.com/CaptainPenguins/SimpleAudioRecognition/blob/master/PythonProject/JupyterNotebook/Instruction.ipynb)
  * C translation of the Python project managed by Visual Studio ([here](https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/VisualStudioProject))
+ * Other Python utilities that we have used ([here](https://github.com/CaptainPenguins/SimpleAudioRecognition/tree/master/MicroblazePlotTools))
+
+ A short document outlining all components of our design is [DesignTree](https://github.com/CaptainPenguins/SimpleAudioRecognition/blob/master/DesignTree.md)
 
 
 ## Contributors
